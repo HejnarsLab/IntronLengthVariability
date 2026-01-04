@@ -22,7 +22,6 @@ import pandas as pd
 import random
 
 from . import intron_lengths as IntronLength
-from . import exon_stuttering as ExonStuttering
 
 # functions
 def validate_paths(file_path):
