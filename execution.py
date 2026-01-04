@@ -85,8 +85,7 @@ if __name__ == "__main__":
             proc=proc,
             gen_lim=gen_lim,
             gene_list=gene_list,
-            results_table_path=blacklist["results_table_path"],
-            store_shuffled=blacklist["store_shuffled"]
+            results_table_path=blacklist["results_table_path"]
         )
 
 
