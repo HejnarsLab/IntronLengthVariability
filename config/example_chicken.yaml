@@ -1,0 +1,76 @@
+# =====================
+# GENERAL
+# =====================
+proc: 8
+gen_lim: null
+gene_list: null
+
+# =====================
+# GENOME CLASS INIT
+# =====================
+species_name: chicken_GGswu
+outfile_prefix: /path/to/example_output
+fasta_path: /path/to/GCA_024206055.2_GGswu_genomic.fna
+gtf_path: /path/to/GCA_024206055.2_GGswu.xenoRefGene.gtf
+gtf_db_path: null
+annot_format: gtf
+bed_file_path: null
+min_exon_len: 10
+
+# =====================
+# PIPELINE STEPS
+# =====================
+steps:
+  add_sql_database: true
+  create_sql_database: true
+  create_intron_blacklist: true
+  calculate_intron_lengths: true
+  aggregate_intron_results: true
+
+# =====================
+# SQL DATABASE
+# =====================
+sql_database:
+  host: localhost
+  user: myuser
+  password: mypassword
+  database: mydatabase
+  port: 3306
+  
+# =====================
+# CREATE INTRON BLACKLIST
+# =====================
+create_intron_blacklist:
+  sim_nanopore_fasta: null
+  coverage: 100.0
+  min_len: 5000
+  max_len: 50000
+  seed: 42
+  results_table_path: null
+
+# =====================
+# CALCULATE INTRON LENGTHS
+# =====================
+calculate_intron_lengths:
+  sample_name_list: ["SRX11722867", "SRX11722868", "SRX11722870", "SRX11722871", "SRX14125033", "SRX14125034", "SRX19311940", "SRX19311957", "SRX19311958", "SRX19311959", "SRX19311960", "SRX19311961"]
+  nanopore_fasta_list: ["/path/to/fasta/SRX11722867.fasta", "/path/to/fasta/SRX11722868.fasta", "/path/to/fasta/SRX11722870.fasta", "/path/to/fasta/SRX11722871.fasta", "/path/to/fasta/SRX14125033.fasta", "/path/to/fasta/SRX14125034.fasta", "/path/to/fasta/SRX19311940.fasta", "/path/to/fasta/SRX19311957.fasta", "/path/to/fasta/SRX19311958.fasta", "/path/to/fasta/SRX19311959.fasta", "/path/to/fasta/SRX19311960.fasta", "/path/to/fasta/SRX19311961.fasta"]
+  store_to_db: true
+  max_read_num_diff: 10
+  min_intron_len: 100
+  min_read_num: 4
+  bit_score: 50
+  margin: 20
+  diff_thr: 0.1
+
+# =====================
+# AGGREGATE INTRON RESULTS
+# =====================
+aggregate_intron_results:
+  results_tables_list: ["chicken_GGswu_SRX11722867", "chicken_GGswu_SRX11722868", "chicken_GGswu_SRX11722870", "chicken_GGswu_SRX11722871", "chicken_GGswu_SRX14125033", "chicken_GGswu_SRX14125034", "chicken_GGswu_SRX19311940", "chicken_GGswu_SRX19311957", "chicken_GGswu_SRX19311958", "chicken_GGswu_SRX19311959", "chicken_GGswu_SRX19311960", "chicken_GGswu_SRX19311961"]
+  results_name: chicken_cohort
+  intron_len_thr: 100
+  read_num_thr: 4
+  store_to_db: true
+  csv_tables_path: false
+  table_for_stats: "chicken_GGswu_SRX14125033"
+  rarefied_n: 6

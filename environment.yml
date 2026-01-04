@@ -1,0 +1,22 @@
+name: stuttering_screen
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - samtools
+  - pybedtools
+  - pandas
+  - mysql-connector-python
+  - pyyaml
+  - pip
+  - numpy
+  - bioframe
+  - tqdm
+  - python=3.10
+  - jenkspy
+  - gffutils
+  - pysam
+  - minimap2
+  - blast
+prefix: /home/hront/miniforge3/envs/stuttering_screen

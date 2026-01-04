@@ -1,0 +1,77 @@
+# =====================
+# GENERAL
+# =====================
+proc: 8
+gen_lim: null
+gene_list: null
+
+# =====================
+# GENOME CLASS INIT
+# =====================
+species_name: human_hg38
+outfile_prefix: /path/to/example_output
+fasta_path: /path/to/Homo_sapiens.GRCh38.dna_sm.toplevel.fa
+gtf_path: /path/to/Homo_sapiens.GRCh38.112.gff3
+gtf_db_path: null
+annot_format: gff
+bed_file_path: null
+min_exon_len: 10
+
+# =====================
+# PIPELINE STEPS
+# =====================
+steps:
+  add_sql_database: true
+  create_sql_database: true
+  create_intron_blacklist: true
+  calculate_intron_lengths: true
+  aggregate_intron_results: true
+
+# =====================
+# SQL DATABASE
+# =====================
+sql_database:
+  host: localhost
+  user: myuser
+  password: mypassword
+  database: mydatabase
+  port: 3306
+  
+# =====================
+# CREATE INTRON BLACKLIST
+# =====================
+create_intron_blacklist:
+  sim_nanopore_fasta: null
+  coverage: 100.0
+  min_len: 5000
+  max_len: 50000
+  seed: 42
+  results_table_path: null
+
+# =====================
+# CALCULATE INTRON LENGTHS
+# =====================
+calculate_intron_lengths:
+  sample_name_list: ["SRR30344988", "SRR30344989", "SRR30344990"]
+  nanopore_fasta_list: ["/path/to/SRR30344988.fasta", "/path/to/SRR30344989.fasta", "/path/to/SRR30344990.fasta"]
+  store_to_db: true
+  max_read_num_diff: 10
+  min_intron_len: 100
+  min_read_num: 4
+  bit_score: 50
+  margin: 20
+  diff_thr: 0.1
+
+# =====================
+# AGGREGATE INTRON RESULTS
+# =====================
+aggregate_intron_results:
+  results_tables_list: ["human_hg38_SRR30344988", "human_hg38_SRR30344989", "human_hg38_SRR30344990"]
+  results_name: human_cohort
+  intron_len_thr: 100
+  read_num_thr: 4
+  store_to_db: true
+  csv_tables_path: false
+  table_for_stats: "human_hg38_SRR30344988"
+  rarefied_n: 6
+
