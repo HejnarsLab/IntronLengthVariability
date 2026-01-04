@@ -84,3 +84,7 @@ The pipeline organizes data into a relational schema for efficient querying:
 ```bash
 python execution.py your_config.yaml
 ```
+
+## 7. Results
+
+Selected columns from results files of chicken and human genome analysis are present in the Results folder. 
