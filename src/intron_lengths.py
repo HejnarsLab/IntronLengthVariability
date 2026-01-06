@@ -47,6 +47,10 @@ def load_mysql_to_df(sql_db, results_tables_list):
         try:
             query = f"SELECT * FROM `{table}`;"
             df = pd.read_sql(query, conn)
+            json_cols = ['intron_lengths', 'read_ids']
+            for col in json_cols:
+                if col in df.columns:
+                    df[col] = df[col].apply(lambda x: json.loads(x) if isinstance(x, str) else x)
             results_df_dict[table] = df
         except Exception as e:
             raise RuntimeError(f"Failed to load table '{table}': {e}")
