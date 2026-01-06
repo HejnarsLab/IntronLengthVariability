@@ -201,6 +201,7 @@ def calculate_intron_variability(args):
     """
     intron_id, gene_id, table_for_stats, threshold_for_len_difference, rarefied_n
     Aggregate intron length and read counts from all samples for a given intron_id.
+    id_intron|intron_lengths|read_ids|num_reads|length_mean1|length_mean2|num_reads1|num_reads2|length_sd1|length_sd2|trusted
     """
     (intron_id, gene_id, table_for_stats, rarefied_n, threshold_for_len_difference) = args
     
@@ -224,7 +225,8 @@ def calculate_intron_variability(args):
                 continue
             
             if table_for_stats == sample_name:
-                x_haplotypes = [row['length_mean1'], row['length_mean2']]
+                x_jnks = get_jenks_means(row['intron_lengths'], 0)
+                x_haplotypes = [x_jnks[0], x_jnks[1]]
                 x_length_difference = max(x_haplotypes)-min(x_haplotypes)
                 x_fc = max(x_haplotypes)/min(x_haplotypes)
                             
